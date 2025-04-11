@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Darksint Chain</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #121212, #1e1e1e);
+      color: #fff;
+    }
+    #sidebar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 100vh;
+      background: rgba(30, 30, 30, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    }
+    #stage-container {
+      position: absolute;
+      left: 240px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+    button, input, select {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+      border: none;
+      border-radius: 12px;
+      background: #333;
+      color: #fff;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #555;
+    }
+    .popup {
+      position: absolute;
+      top: 50px;
+      left: 260px;
+      width: 300px;
+      padding: 15px;
+      background: rgba(50, 50, 50, 0.8);
+      backdrop-filter: blur(6px);
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .popup.visible {
+      display: flex;
+    }
+  
+
+
+:root {
+  --bg: #000;
+  --sidebar-bg: rgba(30, 30, 30, 0.3);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --blur-amount: 14px;
+}
+
+body.light {
+  --bg: linear-gradient(to bottom right, #f5f5f5, #e0e0e0);
+  --sidebar-bg: rgba(255, 255, 255, 0.4);
+  --card-bg: rgba(255, 255, 255, 0.3);
+}
+
+body {
+  background: var(--bg);
+  background-size: cover;
+  margin: 0;
+  font-family: sans-serif;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+  z-index: -1;
+}
+
+#sidebar {
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+  border-radius: 16px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+  border-radius: 16px;
+  padding: 10px;
+  color: white;
+}
+
+
+body.light {
+  --bg: linear-gradient(to bottom right, #f5f5f5, #e0e0e0);
+  --sidebar-bg: rgba(255, 255, 255, 0.6);
+}
+
+body {
+  background: var(--bg);
+  background-size: cover;
+  backdrop-filter: blur(12px);
+}
+#sidebar {
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(12px);
+}
+
+
+body.light {
+  --bg: linear-gradient(to bottom right, #f5f5f5, #e0e0e0);
+  --sidebar-bg: rgba(255, 255, 255, 0.6);
+}
+
+body {
+  background: var(--bg);
+}
+#sidebar {
+  background: var(--sidebar-bg);
+}
+
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/konva@8.4.3/konva.min.js"></script>
+</head>
+<body>
+  <div id="sidebar">
+    <h3>Darksint Chain</h3>
+    <button onclick="addNode('Персона')">👤 Персона</button>
+    <button onclick="addNode('Организация')">🏢 Организация</button>
+    <button onclick="addNode('Локация')">📍 Локация</button>
+    <button onclick="enableLinking()">🔗 Связать</button>
+    <button onclick="exportAsImage()">🖼️ Экспорт PNG</button>
+    <button onclick="downloadProject()">💾 Сохранить</button>
+    <input type="file" onchange="loadProject(event)" />
+<hr>
+<h4>Настройки</h4>
+<button onclick="toggleTheme()">🌓 Переключить тему</button>
+<label>Фон:
+  <input type="file" accept="image/*" onchange="setCustomBackground(event)">
+</label>
+
+  </div>
+  <div id="stage-container"></div>
+  <div id="property-popup" class="popup">
+    <strong>Редактирование узла</strong>
+    <input id="node-title" placeholder="Название">
+    <input id="node-details" placeholder="Дополнительно (например, дата рождения)">
+    <input id="node-bgcolor" type="color" value="#2a2a2a">
+    <input id="node-textcolor" type="color" value="#ffffff">
+    <button onclick="saveProperties()">💾 Сохранить</button>
+    <button onclick="closePropertyPopup()">❌ Закрыть</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
